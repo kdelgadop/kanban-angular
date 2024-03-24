@@ -21,6 +21,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { Board } from '../models/board.models';
 import { Column } from '../models/column.model';
 
+import { TaskCardComponent } from '../task-card/task-card.component';
+
 
 @Component({
   selector: 'app-main-view',
@@ -34,7 +36,7 @@ import { Column } from '../models/column.model';
               FormsModule, 
               MatInputModule,
               MatButtonModule, 
-              MatDividerModule, 
+              TaskCardComponent
               MatIconModule
             ],
   templateUrl: './main-view.component.html',
