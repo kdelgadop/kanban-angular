@@ -1,0 +1,34 @@
+<div class="task" cdkDrag>
+        <mat-form-field class="example-full-width">
+            <input
+                (input)="handleChange(index, column)"
+                bind-attr.data-columnName="inputColumn(column)"  
+                bind-attr.data-index=index
+                matInput
+                id="{{column}}-{{index}}"
+                placeholder="Enter a task..."
+                value={{task}}>
+        </mat-form-field>
+        <div class="example-button-container">
+            <button 
+                class="hidden"
+                #saveBtn
+                (click)="onSubmit(column, index)"
+                bind-attr.data-columnName="inputColumn(column)" 
+                bind-attr.data-index=index
+                mat-mini-fab color="accent" 
+                aria-label="Save icon Button">
+              <mat-icon>save</mat-icon>
+            </button>
+        </div>
+        <div class="example-button-container">
+            <button 
+                (click)="removeTask(column, index)"
+                bind-attr.data-columnName="inputColumn(column)" 
+                bind-attr.data-index="index"
+                mat-mini-fab color="warn" 
+                aria-label="Remove Icon Button">
+              <mat-icon>remove</mat-icon>
+            </button>
+        </div>
+  </div>

@@ -35,40 +35,12 @@
                             (cdkDropListDropped)="drop($event)"
                             bind-attr.data-columnIndex=$index>
                             @for (task of column.tasks; track task) {
-                              <div class="task" cdkDrag>
-                                    <mat-form-field class="example-full-width">
-                                        <input
-                                            (input)="handleChange($index, column.name)"
-                                            bind-attr.data-columnName="inputColumn(column.name)"  
-                                            bind-attr.data-index=$index  
-                                            matInput
-                                            id="{{column.name}}-{{$index}}"
-                                            placeholder="Enter a task..."
-                                            value={{task}}>
-                                    </mat-form-field>
-                                    <div class="example-button-container">
-                                        <button 
-                                            class="hidden"
-                                            #saveBtn
-                                            (click)="onSubmit(column.name, $index)"
-                                            bind-attr.data-columnName="inputColumn(column.name)" 
-                                            bind-attr.data-index=$index 
-                                            mat-mini-fab color="accent" 
-                                            aria-label="Example icon button with a filter list icon">
-                                          <mat-icon>save</mat-icon>
-                                        </button>
-                                    </div>
-                                    <div class="example-button-container">
-                                        <button 
-                                            (click)="removeTask(column.name, $index)"
-                                            bind-attr.data-columnName="inputColumn(column.name)" 
-                                            bind-attr.data-index=$index 
-                                            mat-mini-fab color="warn" 
-                                            aria-label="Example icon button with a filter list icon">
-                                          <mat-icon>remove</mat-icon>
-                                        </button>
-                                    </div>
-                              </div>
+                                <app-task-card 
+                                    [column]="column.name" 
+                                    [index]="$index" 
+                                    [task]="task" 
+                                    [board]="board">
+                                </app-task-card>
                             }
                         </div>
                     </div>
