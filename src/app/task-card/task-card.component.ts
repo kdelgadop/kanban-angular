@@ -1,17 +1,11 @@
 import { Component, Input } from '@angular/core';
 import {
-  CdkDragDrop,
   CdkDrag,
   CdkDropList,
-  CdkDropListGroup,
-  moveItemInArray,
-  transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
-import {FormControl, FormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import { Board } from '../models/board.models';
 
@@ -21,13 +15,10 @@ import { Board } from '../models/board.models';
   imports: [
     CdkDropList, 
     CdkDrag,
-    MatIconModule, 
-    CdkDropListGroup, 
+    MatIconModule,
     MatFormFieldModule, 
-    FormsModule, 
     MatInputModule,
     MatButtonModule, 
-    MatDividerModule, 
     MatIconModule,
   ],
   templateUrl: './task-card.component.html',
