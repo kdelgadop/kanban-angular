@@ -56,6 +56,8 @@ export class MainViewComponent {
     ])
   ]);
 
+  boards: Board[] = [this.board]
+
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -75,5 +77,23 @@ export class MainViewComponent {
   addTask(index: number) {
     this.board.columns[index].tasks.push('')
   }
+  addBoard() {
+    this.boards.push(new Board('New Column',[
+      new Column('Ideas', [
+        ""
+      ]),
+      new Column('Research', [
+        ""
+      ]),
+      new Column('Todo', [
+        ""
+      ]),
+      new Column('Done', [
+        ""
+      ])
+    ]))
+    console.log('👁️👄👁️ this.boards', this.boards, '👀');
+  }
 }
+
 

@@ -9,10 +9,13 @@
     </div>
 
     <div class="board">
-
+        <button (click)="addBoard()" mat-fab extended color="primary" >
+            <mat-icon>add</mat-icon>
+            Add Board
+        </button>
         <mat-tab-group>
             @for (board of boards; track board) {
-                <mat-tab label="Board ">
+                <mat-tab label="Board">
                     <div class="board-bar">
                         <p class="board-name">Board Name</p>
                     </div> 
