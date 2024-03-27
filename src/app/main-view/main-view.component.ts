@@ -75,10 +75,15 @@ export class MainViewComponent {
     return (event.currentTarget instanceof HTMLInputElement);
   }
   addTask(index: number) {
-    this.board.columns[index].tasks.push('')
+    const board = document.querySelector('[data-boardindex]')
+    if (board instanceof HTMLElement) {
+      var boardIndex: number = Number(board.dataset['boardindex']);
+      if (typeof boardIndex === 'number')
+        this.boards[boardIndex].columns[index].tasks.push('')
+    }
   }
   addBoard() {
-    this.boards.push(new Board('New Column',[
+    this.boards.push(new Board('New Board',[
       new Column('Ideas', [
         ""
       ]),
