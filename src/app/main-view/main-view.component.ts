@@ -12,6 +12,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { Board } from '../models/board.models';
@@ -29,7 +30,8 @@ import { TaskCardComponent } from '../task-card/task-card.component';
               MatIconModule, 
               CdkDropListGroup, 
               MatButtonModule, 
-              TaskCardComponent
+              TaskCardComponent,
+              MatTabsModule
             ],
   templateUrl: './main-view.component.html',
   styleUrl: './main-view.component.scss'
