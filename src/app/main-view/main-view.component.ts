@@ -19,6 +19,9 @@ import { Board } from '../models/board.models';
 import { Column } from '../models/column.model';
 
 import { TaskCardComponent } from '../task-card/task-card.component';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @Component({
@@ -31,7 +34,10 @@ import { TaskCardComponent } from '../task-card/task-card.component';
               CdkDropListGroup, 
               MatButtonModule, 
               TaskCardComponent,
-              MatTabsModule
+              MatTabsModule,
+              MatFormFieldModule,
+              MatInputModule,
+              CommonModule
             ],
   templateUrl: './main-view.component.html',
   styleUrl: './main-view.component.scss'
@@ -41,7 +47,7 @@ export class MainViewComponent {
 
   ngOnInit() {}
 
-  board: Board = new Board('New Column',[
+  board: Board = new Board('New Board',[
     new Column('Ideas', [
       ""
     ]),
@@ -57,6 +63,9 @@ export class MainViewComponent {
   ]);
 
   boards: Board[] = [this.board]
+
+  nameEdit: boolean = false
+  newNameEdit: string = ''
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -97,7 +106,26 @@ export class MainViewComponent {
         ""
       ])
     ]))
-    console.log('👁️👄👁️ this.boards', this.boards, '👀');
+  }
+  toggleNameEdit() {
+    this.nameEdit = !this.nameEdit
+  }
+  setNewName(event: Event) {
+    const newName = event.currentTarget as HTMLInputElement
+    this.newNameEdit = newName.value
+  }
+  saveName() {
+    if (this.newNameEdit) {
+      const board = document.querySelector('[data-boardindex]')
+      if (board instanceof HTMLElement) {
+        var boardIndex: number = Number(board.dataset['boardindex']);
+        if (typeof boardIndex === 'number')
+          this.boards[boardIndex].name = this.newNameEdit 
+      }
+    }
+    //resetting values
+    this.newNameEdit = ''
+    this.nameEdit = false
   }
 }
 

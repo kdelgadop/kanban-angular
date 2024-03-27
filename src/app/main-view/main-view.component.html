@@ -9,15 +9,34 @@
     </div>
 
     <div class="board">
-        <button (click)="addBoard()" mat-fab extended color="primary" >
+        <button (click)="addBoard()" mat-fab extended color="primary">
             <mat-icon>add</mat-icon>
-            Add Board
         </button>
         <mat-tab-group>
             @for (board of boards; track board) {
-                <mat-tab label="Board">
-                    <div class="board-bar">
-                        <p class="board-name">Board Name</p>
+                <mat-tab label={{board.name}}>
+                    <div bind-attr.data-boardIndex=$index class="board-bar">
+                        <div *ngIf=!nameEdit><p class="board-name">{{board.name}}</p></div>
+                        <div *ngIf=nameEdit class="example-full-width">
+                            <form class="example-form">
+                                <mat-form-field>
+                                  <input 
+                                    (input)="setNewName($event)"
+                                    matInput 
+                                    placeholder="Enter Board Name" 
+                                    value={{board.name}}>
+                                </mat-form-field>
+                            </form>
+                            <button 
+                                (click)="saveName()"
+                                mat-mini-fab color="accent"
+                                aria-label="Save icon Button">
+                                    <mat-icon>save</mat-icon>
+                            </button>
+                        </div>
+                        <button (click)="toggleNameEdit()" mat-fab color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
                     </div> 
                     <div class="board-wrapper">
                         <div class="board-columns" cdkDropListGroup>
@@ -55,81 +74,6 @@
                     </div>
                 </mat-tab>
             }
-            <mat-tab label="Second"> Content 2 </mat-tab>
-            <mat-tab label="Third"> Content 3 </mat-tab>
           </mat-tab-group>
     </div>
 </div>
-
-                <!-- <div class="board-column">
-                    <div class="column-title">
-                        Ideas
-                    </div>
-                    <div
-                        cdkDropList
-                        #ideaList="cdkDropList"
-                        [cdkDropListData]="ideas"
-                        [cdkDropListConnectedTo]="[researchList, todoList, doneList]"
-                        class="tasks-container"
-                        (cdkDropListDropped)="drop($event)">
-                        @for (item of ideas; track item) {
-                          <div class="task" cdkDrag>{{item}}</div>
-                        }
-                    </div>
-                </div>
-                <div class="board-column">
-                    <div class="column-title">
-                        Research
-                    </div>
-                    <div
-                        cdkDropList
-                        #researchList="cdkDropList"
-                        [cdkDropListData]="research"
-                        [cdkDropListConnectedTo]="[ideaList, todoList, doneList]"
-                        class="tasks-container"
-                        (cdkDropListDropped)="drop($event)">
-                        @for (item of research; track item) {
-                            <div class="task" cdkDrag>{{item}}</div>
-                        }
-                    </div>
-                </div>
-                <div class="board-column">
-                    <div class="column-title">
-                        Todo
-                    </div>
-                    <div
-                        cdkDropList
-                        #todoList="cdkDropList"
-                        [cdkDropListData]="todo"
-                        [cdkDropListConnectedTo]="[ideaList, researchList, doneList]"
-                        class="tasks-container"
-                        (cdkDropListDropped)="drop($event)">
-                        @for (item of todo; track item) {
-                            <div class="task" cdkDrag>{{item}}</div>
-                        }
-                    </div>
-                </div>
-                <div class="board-column">
-                    <div class="column-title">
-                        Done
-                    </div>
-                    <div
-                        cdkDropList
-                        #doneList="cdkDropList"
-                        [cdkDropListData]="done"
-                        [cdkDropListConnectedTo]="[ideaList, researchList, todoList]"
-                        class="tasks-container"
-                        (cdkDropListDropped)="drop($event)">
-                        @for (item of done; track item) {
-                            <div class="task" cdkDrag>
-                                {{item}}
-                                <mat-icon 
-                                    (click)="handleClick($event)" 
-                                    aria-hidden="false" 
-                                    aria-label="Example home icon" 
-                                    fontIcon="home">
-                                </mat-icon>
-                            </div>
-                        }
-                    </div>
-                </div> -->
