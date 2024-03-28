@@ -16,9 +16,16 @@
             @for (board of boards; track board) {
                 <mat-tab label={{board.name}}>
                     <div bind-attr.data-boardIndex=$index class="board-bar">
-                        <div *ngIf=!nameEdit><p class="board-name">{{board.name}}</p></div>
-                        <div *ngIf=nameEdit class="example-full-width">
-                            <form class="example-form">
+                        <div *ngIf=!nameEdit class="board-elements">
+                            <p class="board-name">{{board.name}}</p>
+                            <div class="example-button-container">
+                                <button (click)="toggleNameEdit()" mat-mini-fab color="primary">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div *ngIf=nameEdit class="board-elements">
+                            <form class="example-form paddingTop">
                                 <mat-form-field>
                                   <input 
                                     (input)="setNewName($event)"
@@ -27,16 +34,15 @@
                                     value={{board.name}}>
                                 </mat-form-field>
                             </form>
-                            <button 
-                                (click)="saveName()"
-                                mat-mini-fab color="accent"
-                                aria-label="Save icon Button">
-                                    <mat-icon>save</mat-icon>
-                            </button>
+                            <div class="example-button-container">
+                                <button 
+                                    (click)="saveName()"
+                                    mat-mini-fab color="accent"
+                                    aria-label="Save icon Button">
+                                        <mat-icon>save</mat-icon>
+                                </button>
+                            </div>
                         </div>
-                        <button (click)="toggleNameEdit()" mat-fab color="primary">
-                            <mat-icon>edit</mat-icon>
-                        </button>
                     </div> 
                     <div class="board-wrapper">
                         <div class="board-columns" cdkDropListGroup>
