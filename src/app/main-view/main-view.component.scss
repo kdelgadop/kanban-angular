@@ -11,7 +11,7 @@
 }
 
 .has-gradient-text {
-    background: -webkit-linear-gradient(#13f7f4, #2af598);
+    background: rgb(235, 81, 129);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -32,9 +32,18 @@
         padding: 8px 15px;
     
         .board-name {
-            font-size: 20px;
+            font-size: 30px;
             font-weight: bold;
             color: white;
+            display: flex;
+        }
+        .board-elements {
+            display: flex;
+            align-items: center;
+            height: 70px;
+        }
+        .paddingTop  {
+            margin-top: 25px;
         }
     }
 
@@ -122,7 +131,7 @@
 .example-form {
     min-width: 150px;
     max-width: 500px;
-    width: 100%;
+    // width: 100%;
   }
   
   .example-full-width {

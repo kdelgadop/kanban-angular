@@ -9,116 +9,77 @@
     </div>
 
     <div class="board">
-        <div class="board-bar">
-            <p class="board-name">Board Name</p>
-        </div>
-
-        <div class="board-wrapper">
-            <div class="board-columns" cdkDropListGroup>
-                @for (column of board.columns; track column) {
-                    <div class="board-column">
-                        <div class="column-title">
-                            {{ column.name }}
+        <button (click)="addBoard()" mat-fab extended color="primary">
+            <mat-icon>add</mat-icon>
+        </button>
+        <mat-tab-group>
+            @for (board of boards; track board) {
+                <mat-tab label={{board.name}}>
+                    <div bind-attr.data-boardIndex=$index class="board-bar">
+                        <div *ngIf=!nameEdit class="board-elements">
+                            <p class="board-name">{{board.name}}</p>
                             <div class="example-button-container">
-                                <button 
-                                    mat-mini-fab color="primary" 
-                                    aria-label="Example icon button with a menu icon" 
-                                    (click)="addTask($index)">
-                                  <mat-icon>add</mat-icon>
+                                <button (click)="toggleNameEdit()" mat-mini-fab color="primary">
+                                    <mat-icon>edit</mat-icon>
                                 </button>
                             </div>
                         </div>
-                        <div 
-                            cdkDropList
-                            [cdkDropListData]="column.tasks"
-                            class="tasks-container"
-                            (cdkDropListDropped)="drop($event)"
-                            bind-attr.data-columnIndex=$index>
-                            @for (task of column.tasks; track task) {
-                                <app-task-card 
-                                    [column]="column.name" 
-                                    [index]="$index" 
-                                    [task]="task" 
-                                    [board]="board">
-                                </app-task-card>
-                            }
+                        <div *ngIf=nameEdit class="board-elements">
+                            <form class="example-form paddingTop">
+                                <mat-form-field>
+                                  <input 
+                                    (input)="setNewName($event)"
+                                    matInput 
+                                    placeholder="Enter Board Name" 
+                                    value={{board.name}}>
+                                </mat-form-field>
+                            </form>
+                            <div class="example-button-container">
+                                <button 
+                                    (click)="saveName()"
+                                    mat-mini-fab color="accent"
+                                    aria-label="Save icon Button">
+                                        <mat-icon>save</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="board-wrapper">
+                        <div class="board-columns" cdkDropListGroup>
+                            @for (column of board.columns; track column) {
+                                <div class="board-column">
+                                    <div class="column-title">
+                                        {{ column.name }}
+                                        <div class="example-button-container">
+                                            <button 
+                                                mat-mini-fab color="primary" 
+                                                aria-label="Example icon button with a menu icon" 
+                                                (click)="addTask($index)">
+                                              <mat-icon>add</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div 
+                                        cdkDropList
+                                        [cdkDropListData]="column.tasks"
+                                        class="tasks-container"
+                                        (cdkDropListDropped)="drop($event)"
+                                        bind-attr.data-columnIndex=$index>
+                                        @for (task of column.tasks; track task) {
+                                            <app-task-card 
+                                                [column]="column.name" 
+                                                [index]="$index" 
+                                                [task]="task" 
+                                                [board]="board">
+                                            </app-task-card>
+                                        }
+                                    </div>
+                                </div>
+                              }
                         </div>
                     </div>
-                  }
-            </div>
-        </div>
+                </mat-tab>
+            }
+          </mat-tab-group>
     </div>
 </div>
-
-                <!-- <div class="board-column">
-                    <div class="column-title">
-                        Ideas
-                    </div>
-                    <div
-                        cdkDropList
-                        #ideaList="cdkDropList"
-                        [cdkDropListData]="ideas"
-                        [cdkDropListConnectedTo]="[researchList, todoList, doneList]"
-                        class="tasks-container"
-                        (cdkDropListDropped)="drop($event)">
-                        @for (item of ideas; track item) {
-                          <div class="task" cdkDrag>{{item}}</div>
-                        }
-                    </div>
-                </div>
-                <div class="board-column">
-                    <div class="column-title">
-                        Research
-                    </div>
-                    <div
-                        cdkDropList
-                        #researchList="cdkDropList"
-                        [cdkDropListData]="research"
-                        [cdkDropListConnectedTo]="[ideaList, todoList, doneList]"
-                        class="tasks-container"
-                        (cdkDropListDropped)="drop($event)">
-                        @for (item of research; track item) {
-                            <div class="task" cdkDrag>{{item}}</div>
-                        }
-                    </div>
-                </div>
-                <div class="board-column">
-                    <div class="column-title">
-                        Todo
-                    </div>
-                    <div
-                        cdkDropList
-                        #todoList="cdkDropList"
-                        [cdkDropListData]="todo"
-                        [cdkDropListConnectedTo]="[ideaList, researchList, doneList]"
-                        class="tasks-container"
-                        (cdkDropListDropped)="drop($event)">
-                        @for (item of todo; track item) {
-                            <div class="task" cdkDrag>{{item}}</div>
-                        }
-                    </div>
-                </div>
-                <div class="board-column">
-                    <div class="column-title">
-                        Done
-                    </div>
-                    <div
-                        cdkDropList
-                        #doneList="cdkDropList"
-                        [cdkDropListData]="done"
-                        [cdkDropListConnectedTo]="[ideaList, researchList, todoList]"
-                        class="tasks-container"
-                        (cdkDropListDropped)="drop($event)">
-                        @for (item of done; track item) {
-                            <div class="task" cdkDrag>
-                                {{item}}
-                                <mat-icon 
-                                    (click)="handleClick($event)" 
-                                    aria-hidden="false" 
-                                    aria-label="Example home icon" 
-                                    fontIcon="home">
-                                </mat-icon>
-                            </div>
-                        }
-                    </div>
-                </div> -->
